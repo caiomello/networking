@@ -26,15 +26,19 @@ extension URLRequest {
 
 extension URL {
 	init?(configuration: ResourceConfiguration) {
-		let urlString: String = {
+		func parameterString(withDictionary dictionary: [String: Any]) -> String {
+			let parameters = dictionary.keys.flatMap({ (key) -> String? in
+				guard let value = dictionary[key] else { return nil }
+				return "\(key)=\(value)"
+			})
+			
+			return parameters.joined(separator: "&")
+		}
+		
+		let url: String = {
 			if configuration.method == .get {
 				if let dictionary = configuration.parameters as? [String: Any] {
-					let parameters = dictionary.keys.flatMap({ (key) -> String? in
-						guard let value = dictionary[key] else { return nil }
-						return "\(key)=\(value)"
-					})
-					
-					return configuration.url + "?" + parameters.joined(separator: "&")
+					return configuration.url + "?" + parameterString(withDictionary: dictionary)
 					
 				} else if let string = configuration.parameters as? String {
 					return string
@@ -44,7 +48,18 @@ extension URL {
 			return configuration.url
 		}()
 		
-		guard let string = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil }
+		let finalURL: String = {
+			guard let defaultParameters = APIClient.shared.configuration?.defaultParameters() else { return url }
+			let parameters = parameterString(withDictionary: defaultParameters)
+			
+			if url.contains("?") {
+				return url + "&" + parameters
+			}
+			
+			return url + "?" + parameters
+		}()
+		
+		guard let string = finalURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil }
 		self.init(string: string)
 	}
 }

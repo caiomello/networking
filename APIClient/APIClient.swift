@@ -10,6 +10,7 @@ import Foundation
 
 public protocol APIClientConfiguration {
 	func baseURL() -> String
+	func defaultParameters() -> [String: Any]
 	func timeoutInterval() -> TimeInterval
 }
 
@@ -77,7 +78,7 @@ extension APIClient {
 
 extension APIClient {
 	fileprivate func log(configuration: ResourceConfiguration, request: URLRequest, error: ErrorType?) {
-		let log = "\(configuration.method.rawValue) to \(request.url!.absoluteString)"
+		let log = "[\(configuration.method.rawValue)] \(request.url!.absoluteString)"
 		
 		if let error = error {
 			print(log + " - " + "\(error)")

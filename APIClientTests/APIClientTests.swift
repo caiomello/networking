@@ -50,6 +50,10 @@ extension APIClientTests: APIClientConfiguration {
 		return "https://jsonplaceholder.typicode.com"
 	}
 	
+	func defaultParameters() -> [String : Any] {
+		return ["apikey": "1234"]
+	}
+	
 	func timeoutInterval() -> TimeInterval {
 		return 10
 	}
