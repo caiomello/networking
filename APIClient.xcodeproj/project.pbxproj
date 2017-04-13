@@ -9,12 +9,10 @@
 /* Begin PBXBuildFile section */
 		25C39AA01E9FD463001033FA /* APIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25C39A961E9FD463001033FA /* APIClient.framework */; };
 		25C39AA51E9FD463001033FA /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AA41E9FD463001033FA /* APIClientTests.swift */; };
-		25C39AA71E9FD463001033FA /* APIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 25C39A991E9FD463001033FA /* APIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25C39AB11E9FD4F0001033FA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AB01E9FD4F0001033FA /* APIClient.swift */; };
 		25C39AB31E9FD885001033FA /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AB21E9FD885001033FA /* ErrorType.swift */; };
 		25C39AB51E9FD88C001033FA /* ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AB41E9FD88C001033FA /* ConnectionError.swift */; };
 		25C39AB71E9FD898001033FA /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AB61E9FD898001033FA /* ParsingError.swift */; };
-		25C39AB91E9FD921001033FA /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AB81E9FD921001033FA /* ResponseError.swift */; };
 		25C39ABB1E9FDA20001033FA /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39ABA1E9FDA20001033FA /* Resource.swift */; };
 		25C39ABD1E9FF339001033FA /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39ABC1E9FF339001033FA /* ClientError.swift */; };
 		25C39AC11E9FFC42001033FA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AC01E9FFC42001033FA /* Extensions.swift */; };
@@ -32,7 +30,6 @@
 
 /* Begin PBXFileReference section */
 		25C39A961E9FD463001033FA /* APIClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = APIClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		25C39A991E9FD463001033FA /* APIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
 		25C39A9A1E9FD463001033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25C39A9F1E9FD463001033FA /* APIClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APIClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C39AA41E9FD463001033FA /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
@@ -41,7 +38,6 @@
 		25C39AB21E9FD885001033FA /* ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 		25C39AB41E9FD88C001033FA /* ConnectionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionError.swift; sourceTree = "<group>"; };
 		25C39AB61E9FD898001033FA /* ParsingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsingError.swift; sourceTree = "<group>"; };
-		25C39AB81E9FD921001033FA /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		25C39ABA1E9FDA20001033FA /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		25C39ABC1E9FF339001033FA /* ClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 		25C39AC01E9FFC42001033FA /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -111,7 +107,6 @@
 				25C39AB21E9FD885001033FA /* ErrorType.swift */,
 				25C39AB41E9FD88C001033FA /* ConnectionError.swift */,
 				25C39AB61E9FD898001033FA /* ParsingError.swift */,
-				25C39AB81E9FD921001033FA /* ResponseError.swift */,
 				25C39ABC1E9FF339001033FA /* ClientError.swift */,
 			);
 			name = Code;
@@ -120,7 +115,6 @@
 		25C39ABF1E9FFA5C001033FA /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				25C39A991E9FD463001033FA /* APIClient.h */,
 				25C39A9A1E9FD463001033FA /* Info.plist */,
 			);
 			name = Resource;
@@ -133,7 +127,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25C39AA71E9FD463001033FA /* APIClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +234,6 @@
 			files = (
 				25C39AB51E9FD88C001033FA /* ConnectionError.swift in Sources */,
 				25C39AB31E9FD885001033FA /* ErrorType.swift in Sources */,
-				25C39AB91E9FD921001033FA /* ResponseError.swift in Sources */,
 				25C39AC11E9FFC42001033FA /* Extensions.swift in Sources */,
 				25C39ABB1E9FDA20001033FA /* Resource.swift in Sources */,
 				25C39AB11E9FD4F0001033FA /* APIClient.swift in Sources */,
