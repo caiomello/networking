@@ -10,25 +10,52 @@ import XCTest
 @testable import APIClient
 
 class APIClientTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+	override func setUp() {
+		super.setUp()
+		
+		APIClient.shared.configuration = self
+	}
+	
+	override func tearDown() {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		super.tearDown()
+	}
+}
+
+// MARK: - Tests
+
+extension APIClientTests {
+	func testRequest() {
+		let expectation = self.expectation(description: "GET /posts/1")
+		
+		let task = APIClient.shared.request(Post.resource.identifier(1)) { (post, error) in
+			if let error = error {
+				print(error)
+			} else if let post = post {
+				print(post)
+			}
+			
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: task!.originalRequest!.timeoutInterval) { (error) in
+			if let error = error {
+				print(error)
+			}
+			
+			task?.cancel()
+		}
+	}
+}
+
+// MARK: - APIClient
+
+extension APIClientTests: APIClientConfiguration {
+	func baseURL() -> String {
+		return "https://jsonplaceholder.typicode.com"
+	}
+	
+	func timeoutInterval() -> TimeInterval {
+		return 10
+	}
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25312CED1EA0053000B78769 /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25312CEC1EA0053000B78769 /* ExtensionTests.swift */; };
+		25312CEF1EA0068400B78769 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25312CEE1EA0068400B78769 /* Post.swift */; };
 		25C39AA01E9FD463001033FA /* APIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25C39A961E9FD463001033FA /* APIClient.framework */; };
 		25C39AA51E9FD463001033FA /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AA41E9FD463001033FA /* APIClientTests.swift */; };
 		25C39AB11E9FD4F0001033FA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C39AB01E9FD4F0001033FA /* APIClient.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25312CEC1EA0053000B78769 /* ExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
+		25312CEE1EA0068400B78769 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		25C39A961E9FD463001033FA /* APIClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = APIClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C39A9A1E9FD463001033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25C39A9F1E9FD463001033FA /* APIClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = APIClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				25C39AA41E9FD463001033FA /* APIClientTests.swift */,
+				25312CEC1EA0053000B78769 /* ExtensionTests.swift */,
+				25312CEE1EA0068400B78769 /* Post.swift */,
 				25C39AA61E9FD463001033FA /* Info.plist */,
 			);
 			path = APIClientTests;
@@ -246,7 +252,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25312CEF1EA0068400B78769 /* Post.swift in Sources */,
 				25C39AA51E9FD463001033FA /* APIClientTests.swift in Sources */,
+				25312CED1EA0053000B78769 /* ExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
