@@ -112,8 +112,8 @@
 				25C39ABA1E9FDA20001033FA /* Resource.swift */,
 				25C39AB21E9FD885001033FA /* ErrorType.swift */,
 				25C39AB41E9FD88C001033FA /* ConnectionError.swift */,
-				25C39AB61E9FD898001033FA /* ParsingError.swift */,
 				25C39ABC1E9FF339001033FA /* ClientError.swift */,
+				25C39AB61E9FD898001033FA /* ParsingError.swift */,
 			);
 			name = Code;
 			sourceTree = "<group>";

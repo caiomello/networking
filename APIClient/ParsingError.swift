@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ParsingError: ErrorType {
+public enum ParsingError: ErrorType {
 	case noData
 	case invalidJSON
 	case failed(description: String)
