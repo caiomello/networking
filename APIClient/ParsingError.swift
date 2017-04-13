@@ -13,15 +13,15 @@ public enum ParsingError: ErrorType {
 	case invalidJSON
 	case failed(description: String)
 	
-	var title: String {
+	public var title: String {
 		return GenericErrorTitle
 	}
 	
-	var message: String {
+	public var message: String {
 		return GenericErrorMessage
 	}
 	
-	var technicalDescription: String {
+	public var technicalDescription: String {
 		switch self {
 		case .noData: return "No data"
 		case .invalidJSON: return "Invalid JSON"
@@ -29,7 +29,7 @@ public enum ParsingError: ErrorType {
 		}
 	}
 	
-	var description: String {
+	public var description: String {
 		return "Parsing error: \(technicalDescription)"
 	}
 }
