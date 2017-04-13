@@ -8,8 +8,8 @@
 
 import Foundation
 
-let GenericErrorTitle = "Error"
-let GenericErrorMessage = "Please try again"
+public let GenericErrorTitle = "Error"
+public let GenericErrorMessage = "Please try again"
 
 public protocol ErrorType: Error, CustomStringConvertible {
 	var title: String { get }

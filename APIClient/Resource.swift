@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ResourceConfiguration {
+public struct ResourceConfiguration {
 	let method: HTTPMethod
 	let url: String
 	let parameters: Any?

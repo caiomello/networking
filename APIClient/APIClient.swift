@@ -19,7 +19,7 @@ public protocol APIClientDelegate {
 	func didEndRunningTasks()
 }
 
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
 	case get = "GET"
 	case post = "POST"
 	case put = "PUT"

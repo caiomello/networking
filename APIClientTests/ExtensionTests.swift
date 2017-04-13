@@ -20,6 +20,7 @@ class ExtensionTests: XCTestCase {
 	
 	override func tearDown() {
 		configuration = nil
+		
 		super.tearDown()
 	}
 }
