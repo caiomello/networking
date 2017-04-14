@@ -13,6 +13,13 @@ public struct ResourceConfiguration {
 	let path: String
 	let parameters: Any?
 	let headerFields: [String: String]?
+	
+	public init(method: HTTPMethod, path: String, parameters: Any?, headerFields: [String: String]?) {
+		self.method = method
+		self.path = path
+		self.parameters = parameters
+		self.headerFields = headerFields
+	}
 }
 
 public struct Resource<T> {
