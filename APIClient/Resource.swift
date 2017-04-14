@@ -19,7 +19,7 @@ public struct Resource<T> {
 	let configuration: () throws -> ResourceConfiguration
 	let parse: (Data?) throws -> T?
 	
-	init(configuration: @escaping () throws -> ResourceConfiguration, parseJSON: @escaping (_ object: Any?) throws -> T?) {
+	public init(configuration: @escaping () throws -> ResourceConfiguration, parseJSON: @escaping (_ object: Any?) throws -> T?) {
 		self.configuration = configuration
 		self.parse = { data in
 			guard let data = data, data.count > 0 else { throw ParsingError.noData }
