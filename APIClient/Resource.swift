@@ -10,7 +10,7 @@ import Foundation
 
 public struct ResourceConfiguration {
 	let method: HTTPMethod
-	let url: String
+	let path: String
 	let parameters: Any?
 	let headerFields: [String: String]?
 }

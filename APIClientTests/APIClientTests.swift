@@ -33,6 +33,8 @@ extension APIClientTests {
 			expectation.fulfill()
 		}
 		
+		XCTAssertEqual(task?.originalRequest?.url?.absoluteString, "https://jsonplaceholder.typicode.com/posts/1")
+		
 		waitForExpectations(timeout: task!.originalRequest!.timeoutInterval) { (error) in
 			if let error = error {
 				print(error)
@@ -50,8 +52,8 @@ extension APIClientTests: APIClientConfiguration {
 		return "https://jsonplaceholder.typicode.com"
 	}
 	
-	func defaultParameters() -> [String : Any] {
-		return ["apikey": "1234"]
+	func defaultParameters() -> [String : Any]? {
+		return nil
 	}
 	
 	func timeoutInterval() -> TimeInterval {

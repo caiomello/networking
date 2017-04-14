@@ -35,31 +35,39 @@ extension URL {
 			return parameters.joined(separator: "&")
 		}
 		
-		let url: String = {
+		let path: String = {
 			if configuration.method == .get {
 				if let dictionary = configuration.parameters as? [String: Any] {
-					return configuration.url + "?" + parameterString(withDictionary: dictionary)
+					return configuration.path + "?" + parameterString(withDictionary: dictionary)
 					
 				} else if let string = configuration.parameters as? String {
 					return string
 				}
 			}
 			
-			return configuration.url
+			return configuration.path
 		}()
 		
-		let finalURL: String = {
-			guard let defaultParameters = APIClient.shared.configuration?.defaultParameters() else { return url }
-			let parameters = parameterString(withDictionary: defaultParameters)
+		guard let baseURL = APIClient.shared.configuration?.baseURL() else { return nil }
+		
+		let url: String = {
+			let parameters: String? = {
+				guard let defaultParameters = APIClient.shared.configuration?.defaultParameters() else { return nil }
+				return parameterString(withDictionary: defaultParameters)
+			}()
 			
-			if url.contains("?") {
-				return url + "&" + parameters
+			if let parameters = parameters {
+				if path.contains("?") {
+					return baseURL + path + "&" + parameters
+				} else {
+					return baseURL + path + "?" + parameters
+				}
 			}
 			
-			return url + "?" + parameters
+			return baseURL + path
 		}()
 		
-		guard let string = finalURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil }
+		guard let string = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil }
 		self.init(string: string)
 	}
 }

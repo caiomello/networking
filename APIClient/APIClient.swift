@@ -10,7 +10,7 @@ import Foundation
 
 public protocol APIClientConfiguration {
 	func baseURL() -> String
-	func defaultParameters() -> [String: Any]
+	func defaultParameters() -> [String: Any]?
 	func timeoutInterval() -> TimeInterval
 }
 

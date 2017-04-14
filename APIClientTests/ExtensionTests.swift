@@ -15,7 +15,9 @@ class ExtensionTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		
-		configuration = ResourceConfiguration(method: .get, url: "https://jsonplaceholder.typicode.com", parameters: ["page": "1", "date": "2017-04-13"], headerFields: ["key": "value"])
+		configuration = ResourceConfiguration(method: .get, path: "", parameters: ["page": "1", "date": "2017-04-13"], headerFields: ["key": "value"])
+		
+		APIClient.shared.configuration = self
 	}
 	
 	override func tearDown() {
@@ -47,5 +49,21 @@ extension ExtensionTests {
 		guard let url = URL(configuration: configuration)?.absoluteString else { XCTFail(); return }
 		
 		XCTAssertEqual(url, "https://jsonplaceholder.typicode.com?page=1&date=2017-04-13&apikey=1234")
+	}
+}
+
+// MARK: - APIClient
+
+extension ExtensionTests: APIClientConfiguration {
+	func baseURL() -> String {
+		return "https://jsonplaceholder.typicode.com"
+	}
+	
+	func defaultParameters() -> [String : Any]? {
+		return ["apikey": "1234"]
+	}
+	
+	func timeoutInterval() -> TimeInterval {
+		return 10
 	}
 }

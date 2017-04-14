@@ -39,11 +39,9 @@ extension Post {
 	struct resource {
 		static func identifier(_ identifier: Int) -> Resource<Post> {
 			return Resource<Post>(configuration: { () -> ResourceConfiguration in
-				guard let configuration = APIClient.shared.configuration else { throw ClientError.noConfiguration }
+				let path = "/posts/" + "\(identifier)"
 				
-				let url = configuration.baseURL() + "/posts/" + "\(identifier)"
-				
-				return ResourceConfiguration(method: .get, url: url, parameters: nil, headerFields: nil)
+				return ResourceConfiguration(method: .get, path: path, parameters: nil, headerFields: nil)
 				
 			}, parseJSON: { (object) -> Post? in
 				guard let dictionary = object as? [String: Any] else { throw ParsingError.failed(description: "Post - dictionary") }
