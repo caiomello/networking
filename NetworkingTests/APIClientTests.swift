@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import APIClient
+@testable import Networking
 
 class APIClientTests: XCTestCase {
 	override func setUp() {

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import APIClient
+@testable import Networking
 
 struct Post {
 	let identifier: Int

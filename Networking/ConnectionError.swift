@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ConnectionError: ErrorType {
+enum ConnectionError: NetworkingError {
 	case unknown
 	case noInternetConnection
 	case timedOut

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ParsingError: ErrorType {
+public enum ParsingError: NetworkingError {
 	case noData
 	case invalidJSON
 	case failed(description: String)

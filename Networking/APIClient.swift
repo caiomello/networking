@@ -38,7 +38,7 @@ public class APIClient {
 // MARK: - Requests
 
 extension APIClient {
-	@discardableResult public func request<T>(_ resource: Resource<T>, completion: @escaping (T?, _ error: ErrorType?) -> Void) -> URLSessionDataTask? {
+	@discardableResult public func request<T>(_ resource: Resource<T>, completion: @escaping (T?, _ error: NetworkingError?) -> Void) -> URLSessionDataTask? {
 		showNetworkActivityIndicator()
 		
 		do {
@@ -55,8 +55,8 @@ extension APIClient {
 						if let connectionError = ConnectionError(response: response, error: error) { throw connectionError }
 						completion(try resource.parse(data), nil)
 					} catch {
-						self.log(configuration: configuration, request: request, error: error as? ErrorType)
-						completion(nil, error as? ErrorType)
+						self.log(configuration: configuration, request: request, error: error as? NetworkingError)
+						completion(nil, error as? NetworkingError)
 					}
 				}
 			})
@@ -68,7 +68,7 @@ extension APIClient {
 		} catch {
 			hideNetworkActivityIndicator()
 			log(error: error)
-			completion(nil, error as? ErrorType)
+			completion(nil, error as? NetworkingError)
 			return nil
 		}
 	}
@@ -77,7 +77,7 @@ extension APIClient {
 // MARK: - Logging
 
 extension APIClient {
-	fileprivate func log(configuration: ResourceConfiguration, request: URLRequest, error: ErrorType?) {
+	fileprivate func log(configuration: ResourceConfiguration, request: URLRequest, error: NetworkingError?) {
 		let log = "[\(configuration.method.rawValue)] \(request.url!.absoluteString)"
 		
 		if let error = error {

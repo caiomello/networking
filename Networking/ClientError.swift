@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ClientError: ErrorType {
+enum ClientError: NetworkingError {
 	case noConfiguration
 	case invalidURL
 	
