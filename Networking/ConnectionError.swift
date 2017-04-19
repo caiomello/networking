@@ -28,7 +28,7 @@ enum ConnectionError: NetworkingError {
 		switch self {
 		case .noInternetConnection: return "No internet connection"
 		case .timedOut: return "The request took too long"
-		default: return GenericErrorTitle
+		default: return GenericErrorMessage
 		}
 	}
 	
