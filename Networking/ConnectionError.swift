@@ -51,21 +51,6 @@ enum ConnectionError: NetworkingError {
 		return "Connection error: \(technicalDescription)"
 	}
 	
-	private init(code: Int) {
-		switch code {
-		case 0: self = .noInternetConnection
-		case -1001: self = .timedOut
-		case 400, 422: self = .badRequest
-		case 401: self = .unauthorized
-		case 403: self = .forbidden
-		case 404: self = .notFound
-		case 405: self = .methodNotAllowed
-		case 409: self = .conflict
-		case 500: self = .serverError
-		default: self = .unknown
-		}
-	}
-	
 	init?(response: URLResponse?, error: Error?) {
 		guard let code: Int = {
 			if let error = error as NSError? {
@@ -82,5 +67,20 @@ enum ConnectionError: NetworkingError {
 		}
 		
 		self.init(code: code)
+	}
+	
+	private init(code: Int) {
+		switch code {
+		case 0, -1009: self = .noInternetConnection
+		case -1001: self = .timedOut
+		case 400, 422: self = .badRequest
+		case 401: self = .unauthorized
+		case 403: self = .forbidden
+		case 404: self = .notFound
+		case 405: self = .methodNotAllowed
+		case 409: self = .conflict
+		case 500: self = .serverError
+		default: self = .unknown
+		}
 	}
 }
