@@ -17,7 +17,7 @@ class ExtensionTests: XCTestCase {
 		
 		configuration = ResourceConfiguration(method: .get, path: "", parameters: ["page": "1", "date": "2017-04-13"], headerFields: ["key": "value"])
 		
-		APIClient.shared.configuration = self
+		Networking.client.configuration = self
 	}
 	
 	override func tearDown() {
@@ -54,7 +54,7 @@ extension ExtensionTests {
 
 // MARK: - APIClient
 
-extension ExtensionTests: APIClientConfiguration {
+extension ExtensionTests: NetworkingClientConfiguration {
 	func baseURL() -> String {
 		return "https://jsonplaceholder.typicode.com"
 	}

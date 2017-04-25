@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		256DE36B1EA706F600F29246 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 256DE3611EA706F600F29246 /* Networking.framework */; };
-		25C86FE51EA7074600A1E4C0 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE21EA7074600A1E4C0 /* APIClientTests.swift */; };
+		2597A0351EAFC75E001BF6FE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597A0341EAFC75E001BF6FE /* Networking.swift */; };
+		2597A0391EAFFEF0001BF6FE /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597A0381EAFFEF0001BF6FE /* ClientTests.swift */; };
 		25C86FE61EA7074600A1E4C0 /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */; };
 		25C86FE71EA7074600A1E4C0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE41EA7074600A1E4C0 /* Post.swift */; };
-		25C86FEF1EA7075700A1E4C0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE81EA7075700A1E4C0 /* APIClient.swift */; };
 		25C86FF01EA7075700A1E4C0 /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE91EA7075700A1E4C0 /* ClientError.swift */; };
 		25C86FF11EA7075700A1E4C0 /* ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FEA1EA7075700A1E4C0 /* ConnectionError.swift */; };
 		25C86FF31EA7075700A1E4C0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FEC1EA7075700A1E4C0 /* Extensions.swift */; };
@@ -35,10 +35,10 @@
 		256DE3651EA706F600F29246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256DE36A1EA706F600F29246 /* NetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		256DE3711EA706F600F29246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		25C86FE21EA7074600A1E4C0 /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		2597A0341EAFC75E001BF6FE /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		2597A0381EAFFEF0001BF6FE /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		25C86FE41EA7074600A1E4C0 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		25C86FE81EA7075700A1E4C0 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		25C86FE91EA7075700A1E4C0 /* ClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 		25C86FEA1EA7075700A1E4C0 /* ConnectionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionError.swift; sourceTree = "<group>"; };
 		25C86FEC1EA7075700A1E4C0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		256DE36E1EA706F600F29246 /* NetworkingTests */ = {
 			isa = PBXGroup;
 			children = (
-				25C86FE21EA7074600A1E4C0 /* APIClientTests.swift */,
+				2597A0381EAFFEF0001BF6FE /* ClientTests.swift */,
 				25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */,
 				25C86FE41EA7074600A1E4C0 /* Post.swift */,
 				256DE3711EA706F600F29246 /* Info.plist */,
@@ -115,7 +115,7 @@
 		25C86FF91EA707C800A1E4C0 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				25C86FE81EA7075700A1E4C0 /* APIClient.swift */,
+				2597A0341EAFC75E001BF6FE /* Networking.swift */,
 				25C86FEC1EA7075700A1E4C0 /* Extensions.swift */,
 				25C86FEE1EA7075700A1E4C0 /* Resource.swift */,
 				25C86FF61EA7076B00A1E4C0 /* NetworkingError.swift */,
@@ -242,8 +242,8 @@
 				25C86FF31EA7075700A1E4C0 /* Extensions.swift in Sources */,
 				25C86FF41EA7075700A1E4C0 /* ParsingError.swift in Sources */,
 				25C86FF71EA7076B00A1E4C0 /* NetworkingError.swift in Sources */,
+				2597A0351EAFC75E001BF6FE /* Networking.swift in Sources */,
 				25C86FF11EA7075700A1E4C0 /* ConnectionError.swift in Sources */,
-				25C86FEF1EA7075700A1E4C0 /* APIClient.swift in Sources */,
 				25C86FF01EA7075700A1E4C0 /* ClientError.swift in Sources */,
 				25C86FF51EA7075700A1E4C0 /* Resource.swift in Sources */,
 			);
@@ -254,7 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25C86FE71EA7074600A1E4C0 /* Post.swift in Sources */,
-				25C86FE51EA7074600A1E4C0 /* APIClientTests.swift in Sources */,
+				2597A0391EAFFEF0001BF6FE /* ClientTests.swift in Sources */,
 				25C86FE61EA7074600A1E4C0 /* ExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

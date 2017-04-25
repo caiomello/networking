@@ -13,7 +13,7 @@ class APIClientTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		
-		APIClient.shared.configuration = self
+		Networking.client.configuration = self
 	}
 }
 
@@ -23,7 +23,7 @@ extension APIClientTests {
 	func testRequest() {
 		let expectation = self.expectation(description: "GET /posts/1")
 		
-		let task = APIClient.shared.request(Post.resource.identifier(1)) { (post, error) in
+		let task = Networking.client.request(Post.resource.identifier(1)) { (post, error) in
 			if let error = error {
 				print(error)
 			} else if let post = post {
@@ -47,7 +47,7 @@ extension APIClientTests {
 
 // MARK: - APIClient
 
-extension APIClientTests: APIClientConfiguration {
+extension APIClientTests: NetworkingClientConfiguration {
 	func baseURL() -> String {
 		return "https://jsonplaceholder.typicode.com"
 	}

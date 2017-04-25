@@ -1,20 +1,20 @@
 //
-//  APIClient.swift
-//  APIClient
+//  Networking.swift
+//  Networking
 //
-//  Created by Caio Mello on April 13, 2017.
+//  Created by Caio Mello on April 25, 2017.
 //  Copyright © 2017 Caio Mello. All rights reserved.
 //
 
 import Foundation
 
-public protocol APIClientConfiguration {
+public protocol NetworkingClientConfiguration {
 	func baseURL() -> String
 	func defaultParameters() -> [String: Any]?
 	func timeoutInterval() -> TimeInterval
 }
 
-public protocol APIClientDelegate {
+public protocol NetworkingClientDelegate {
 	func didBeginRunningTasks()
 	func didEndRunningTasks()
 }
@@ -26,18 +26,20 @@ public enum HTTPMethod: String {
 	case delete = "DELETE"
 }
 
-public class APIClient {
-	public static let shared = APIClient()
+public class Networking {
+	public static let client = Networking()
 	
-	public var configuration: APIClientConfiguration?
-	public var delegate: APIClientDelegate?
+	public var configuration: NetworkingClientConfiguration?
+	public var delegate: NetworkingClientDelegate?
 	
 	fileprivate var numberOfRunningTasks = 0
+	
+	private init() {}
 }
 
 // MARK: - Requests
 
-extension APIClient {
+extension Networking {
 	@discardableResult public func request<T>(_ resource: Resource<T>, completion: @escaping (T?, _ error: NetworkingError?) -> Void) -> URLSessionDataTask? {
 		showNetworkActivityIndicator()
 		
@@ -76,7 +78,7 @@ extension APIClient {
 
 // MARK: - Logging
 
-extension APIClient {
+extension Networking {
 	fileprivate func log(configuration: ResourceConfiguration, request: URLRequest, error: NetworkingError?) {
 		let log = "[\(configuration.method.rawValue)] \(request.url!.absoluteString)"
 		
@@ -96,7 +98,7 @@ extension APIClient {
 
 // MARK: - Network Activity Indicator
 
-extension APIClient {
+extension Networking {
 	fileprivate func showNetworkActivityIndicator() {
 		delegate?.didBeginRunningTasks()
 		numberOfRunningTasks += 1

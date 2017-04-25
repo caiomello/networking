@@ -13,7 +13,7 @@ import Foundation
 extension URLRequest {
 	init(configuration: ResourceConfiguration) throws {
 		guard let url = URL(configuration: configuration) else { throw ClientError.invalidURL }
-		guard let timeoutInterval = APIClient.shared.configuration?.timeoutInterval() else { throw ClientError.noConfiguration }
+		guard let timeoutInterval = Networking.client.configuration?.timeoutInterval() else { throw ClientError.noConfiguration }
 		
 		self.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: timeoutInterval)
 		self.httpMethod = configuration.method.rawValue
@@ -48,11 +48,11 @@ extension URL {
 			return configuration.path
 		}()
 		
-		guard let baseURL = APIClient.shared.configuration?.baseURL() else { return nil }
+		guard let baseURL = Networking.client.configuration?.baseURL() else { return nil }
 		
 		let url: String = {
 			let parameters: String? = {
-				guard let defaultParameters = APIClient.shared.configuration?.defaultParameters() else { return nil }
+				guard let defaultParameters = Networking.client.configuration?.defaultParameters() else { return nil }
 				return parameterString(withDictionary: defaultParameters)
 			}()
 			
