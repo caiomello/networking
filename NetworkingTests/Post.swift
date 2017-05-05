@@ -43,7 +43,7 @@ extension Post {
 				
 				return ResourceConfiguration(method: .get, path: path, parameters: nil, headerFields: nil)
 				
-			}, parsing: { (object) -> Post? in
+			}, parsing: { (object) -> Post in
 				guard let dictionary = object as? [String: Any] else { throw ParsingError.failed(description: "Post - dictionary") }
 				return try Post(dictionary: dictionary)
 			})

@@ -23,11 +23,12 @@ extension APIClientTests {
 	func testRequest() {
 		let expectation = self.expectation(description: "GET /posts/1")
 		
-		let task = Networking.client.request(Post.resource.identifier(1)) { (post, error) in
-			if let error = error {
+		let task = Networking.client.request(Post.resource.identifier(1)) { (result) in
+			switch result {
+			case .success(let object):
+				print(object)
+			case .failure(let error):
 				print(error)
-			} else if let post = post {
-				print(post)
 			}
 			
 			expectation.fulfill()

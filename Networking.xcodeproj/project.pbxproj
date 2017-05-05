@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		256DE36B1EA706F600F29246 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 256DE3611EA706F600F29246 /* Networking.framework */; };
+		257B6EF91EBD17D100498761 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B6EF81EBD17D100498761 /* Result.swift */; };
 		2597A0351EAFC75E001BF6FE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597A0341EAFC75E001BF6FE /* Networking.swift */; };
 		2597A0391EAFFEF0001BF6FE /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2597A0381EAFFEF0001BF6FE /* ClientTests.swift */; };
 		25C86FE61EA7074600A1E4C0 /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */; };
@@ -35,6 +36,7 @@
 		256DE3651EA706F600F29246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256DE36A1EA706F600F29246 /* NetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		256DE3711EA706F600F29246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		257B6EF81EBD17D100498761 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		2597A0341EAFC75E001BF6FE /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		2597A0381EAFFEF0001BF6FE /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				2597A0341EAFC75E001BF6FE /* Networking.swift */,
 				25C86FEC1EA7075700A1E4C0 /* Extensions.swift */,
 				25C86FEE1EA7075700A1E4C0 /* Resource.swift */,
+				257B6EF81EBD17D100498761 /* Result.swift */,
 				25C86FF61EA7076B00A1E4C0 /* NetworkingError.swift */,
 				25C86FEA1EA7075700A1E4C0 /* ConnectionError.swift */,
 				25C86FE91EA7075700A1E4C0 /* ClientError.swift */,
@@ -245,6 +248,7 @@
 				2597A0351EAFC75E001BF6FE /* Networking.swift in Sources */,
 				25C86FF11EA7075700A1E4C0 /* ConnectionError.swift in Sources */,
 				25C86FF01EA7075700A1E4C0 /* ClientError.swift in Sources */,
+				257B6EF91EBD17D100498761 /* Result.swift in Sources */,
 				25C86FF51EA7075700A1E4C0 /* Resource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
