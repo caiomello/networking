@@ -15,11 +15,11 @@ public protocol NetworkingClientConfiguration {
 }
 
 extension NetworkingClientConfiguration {
-	func networkingClientDefaultParameters() -> [String: Any]? {
+	public func networkingClientDefaultParameters() -> [String: Any]? {
 		return nil
 	}
 	
-	func networkingClientTimeoutInterval() -> TimeInterval {
+	public func networkingClientTimeoutInterval() -> TimeInterval {
 		return 30
 	}
 }
