@@ -14,6 +14,18 @@ public struct ResourceConfiguration {
 	let parameters: Any?
 	let headerFields: [String: String]?
 	
+	public init(method: HTTPMethod, path: String) {
+		self.init(method: method, path: path, parameters: nil, headerFields: nil)
+	}
+	
+	public init(method: HTTPMethod, path: String, parameters: Any) {
+		self.init(method: method, path: path, parameters: parameters, headerFields: nil)
+	}
+	
+	public init(method: HTTPMethod, path: String, headerFields: [String: String]) {
+		self.init(method: method, path: path, parameters: nil, headerFields: headerFields)
+	}
+	
 	public init(method: HTTPMethod, path: String, parameters: Any?, headerFields: [String: String]?) {
 		self.method = method
 		self.path = path
