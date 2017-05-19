@@ -55,15 +55,11 @@ extension ExtensionTests {
 // MARK: - APIClient
 
 extension ExtensionTests: NetworkingClientConfiguration {
-	func baseURL() -> String {
+	func networkingClientBaseURL() -> String {
 		return "https://jsonplaceholder.typicode.com"
 	}
 	
-	func defaultParameters() -> [String : Any]? {
+	func networkingClientDefaultParameters() -> [String : Any]? {
 		return ["apikey": "1234"]
-	}
-	
-	func timeoutInterval() -> TimeInterval {
-		return 10
 	}
 }

@@ -9,14 +9,24 @@
 import Foundation
 
 public protocol NetworkingClientConfiguration {
-	func baseURL() -> String
-	func defaultParameters() -> [String: Any]?
-	func timeoutInterval() -> TimeInterval
+	func networkingClientBaseURL() -> String
+	func networkingClientDefaultParameters() -> [String: Any]?
+	func networkingClientTimeoutInterval() -> TimeInterval
+}
+
+extension NetworkingClientConfiguration {
+	func networkingClientDefaultParameters() -> [String: Any]? {
+		return nil
+	}
+	
+	func networkingClientTimeoutInterval() -> TimeInterval {
+		return 30
+	}
 }
 
 public protocol NetworkingClientDelegate {
-	func didBeginRunningTasks()
-	func didEndRunningTasks()
+	func networkingClientDidBeginRunningTasks()
+	func networkingClientDidEndRunningTasks()
 }
 
 public enum HTTPMethod: String {
@@ -111,7 +121,7 @@ extension Networking {
 
 extension Networking {
 	fileprivate func showNetworkActivityIndicator() {
-		delegate?.didBeginRunningTasks()
+		delegate?.networkingClientDidBeginRunningTasks()
 		numberOfRunningTasks += 1
 	}
 	
@@ -119,7 +129,7 @@ extension Networking {
 		numberOfRunningTasks -= 1
 		
 		if numberOfRunningTasks == 0 {
-			delegate?.didEndRunningTasks()
+			delegate?.networkingClientDidEndRunningTasks()
 		}
 	}
 }

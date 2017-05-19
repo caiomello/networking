@@ -49,15 +49,7 @@ extension APIClientTests {
 // MARK: - APIClient
 
 extension APIClientTests: NetworkingClientConfiguration {
-	func baseURL() -> String {
+	func networkingClientBaseURL() -> String {
 		return "https://jsonplaceholder.typicode.com"
-	}
-	
-	func defaultParameters() -> [String : Any]? {
-		return nil
-	}
-	
-	func timeoutInterval() -> TimeInterval {
-		return 10
 	}
 }
