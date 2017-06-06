@@ -51,8 +51,6 @@ public class Networking {
 
 extension Networking {
 	@discardableResult public func request<T>(_ resource: Resource<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
-		showNetworkActivityIndicator()
-		
 		do {
 			let configuration = try resource.configuration()
 			let request = try URLRequest(configuration: configuration)
@@ -60,20 +58,20 @@ extension Networking {
 			log(configuration: configuration, request: request, error: nil)
 			
 			let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-				self.hideNetworkActivityIndicator()
-				
 				do {
 					if let connectionError = ConnectionError(response: response, error: error) { throw connectionError }
 					
 					let object = try resource.parse(data)
 					
 					DispatchQueue.main.async {
+						self.hideNetworkActivityIndicator()
 						completion(.success(object))
 					}
 				} catch {
 					self.log(configuration: configuration, request: request, error: error as? NetworkingError)
 					
 					DispatchQueue.main.async {
+						self.hideNetworkActivityIndicator()
 						completion(.failure(error as! NetworkingError))
 					}
 				}
@@ -84,11 +82,10 @@ extension Networking {
 			return task
 			
 		} catch {
-			hideNetworkActivityIndicator()
-			
 			log(error: error)
 			
 			DispatchQueue.main.async {
+				self.hideNetworkActivityIndicator()
 				completion(.failure(error as! NetworkingError))
 			}
 			
