@@ -51,6 +51,10 @@ public class Networking {
 
 extension Networking {
 	@discardableResult public func request<T>(_ resource: Resource<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
+		DispatchQueue.main.async {
+			self.showNetworkActivityIndicator()
+		}
+		
 		do {
 			let configuration = try resource.configuration()
 			let request = try URLRequest(configuration: configuration)
