@@ -12,14 +12,6 @@ enum ClientError: NetworkingError {
 	case noConfiguration
 	case invalidURL
 	
-	var title: String {
-		return GenericErrorTitle
-	}
-	
-	var message: String {
-		return GenericErrorMessage
-	}
-	
 	var technicalDescription: String {
 		switch self {
 		case .noConfiguration: return "Client not configured"

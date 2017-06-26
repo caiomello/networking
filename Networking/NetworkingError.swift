@@ -16,3 +16,13 @@ public protocol NetworkingError: Error, CustomStringConvertible {
 	var message: String { get }
 	var technicalDescription: String { get }
 }
+
+extension NetworkingError {
+	public var title: String {
+		return GenericErrorTitle
+	}
+	
+	public var message: String {
+		return GenericErrorMessage
+	}
+}

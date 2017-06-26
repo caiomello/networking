@@ -13,14 +13,6 @@ public enum ParsingError: NetworkingError {
 	case invalidJSON
 	case failed(description: String)
 	
-	public var title: String {
-		return GenericErrorTitle
-	}
-	
-	public var message: String {
-		return GenericErrorMessage
-	}
-	
 	public var technicalDescription: String {
 		switch self {
 		case .noData: return "No data"

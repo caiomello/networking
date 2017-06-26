@@ -20,10 +20,6 @@ enum ConnectionError: NetworkingError {
 	case notFound
 	case serverError
 	
-	var title: String {
-		return GenericErrorTitle
-	}
-	
 	var message: String {
 		switch self {
 		case .noInternetConnection: return "No internet connection"
