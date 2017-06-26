@@ -76,7 +76,7 @@ extension Networking {
 					
 					DispatchQueue.main.async {
 						self.hideNetworkActivityIndicator()
-						completion(.failure(error as! NetworkingError))
+						completion(.failure(error as! NetworkingError, response as? HTTPURLResponse))
 					}
 				}
 			})
@@ -90,7 +90,7 @@ extension Networking {
 			
 			DispatchQueue.main.async {
 				self.hideNetworkActivityIndicator()
-				completion(.failure(error as! NetworkingError))
+				completion(.failure(error as! NetworkingError, nil))
 			}
 			
 			return nil
