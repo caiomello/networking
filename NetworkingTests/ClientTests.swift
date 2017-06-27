@@ -27,7 +27,7 @@ extension APIClientTests {
 			switch result {
 			case .success(let object):
 				print(object)
-			case .failure(let error):
+			case .failure(let error, _):
 				print(error)
 			}
 			
