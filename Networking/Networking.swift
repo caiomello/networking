@@ -12,6 +12,7 @@ public protocol NetworkingClientConfiguration {
 	func networkingClientBaseURL() -> String
 	func networkingClientDefaultParameters() -> [String: Any]?
 	func networkingClientTimeoutInterval() -> TimeInterval
+	func networkingClientLoggingEnabled() -> Bool
 }
 
 extension NetworkingClientConfiguration {
@@ -21,6 +22,10 @@ extension NetworkingClientConfiguration {
 	
 	public func networkingClientTimeoutInterval() -> TimeInterval {
 		return 30
+	}
+	
+	public func networkingClientLoggingEnabled() -> Bool {
+		return true
 	}
 }
 
@@ -102,6 +107,8 @@ extension Networking {
 
 extension Networking {
 	fileprivate func log(configuration: ResourceConfiguration, request: URLRequest, error: NetworkingError?) {
+		guard let clientConfiguration = Networking.client.configuration, clientConfiguration.networkingClientLoggingEnabled() else { return }
+		
 		let log = "[\(configuration.method.rawValue)] \(request.url!.absoluteString)"
 		
 		if let error = error {
@@ -114,6 +121,8 @@ extension Networking {
 	}
 	
 	fileprivate func log(error: Error) {
+		guard let clientConfiguration = Networking.client.configuration, clientConfiguration.networkingClientLoggingEnabled() else { return }
+		
 		print(error)
 	}
 }
