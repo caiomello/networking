@@ -20,6 +20,13 @@ public struct NetworkingClient {
 	let defaultParameters: [String: Any]?
 	let timeoutInterval: TimeInterval
 	let loggingEnabled: Bool
+	
+	public init(baseURL: String, defaultParameters: [String: Any]?, timeoutInterval: TimeInterval, loggingEnabled: Bool) {
+		self.baseURL = baseURL
+		self.defaultParameters = defaultParameters
+		self.timeoutInterval = timeoutInterval
+		self.loggingEnabled = loggingEnabled
+	}
 }
 
 // MARK: - Requests
