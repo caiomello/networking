@@ -11,11 +11,10 @@ import Foundation
 // MARK: - URLRequest
 
 extension URLRequest {
-	init(configuration: ResourceConfiguration) throws {
-		guard let url = URL(configuration: configuration) else { throw ClientError.invalidURL }
-		guard let timeoutInterval = Networking.client.configuration?.networkingClientTimeoutInterval() else { throw ClientError.noConfiguration }
+	init(client: NetworkingClient, configuration: ResourceConfiguration) throws {
+		guard let url = URL(baseURL: client.baseURL, defaultParameters: client.defaultParameters, configuration: configuration) else { throw ClientError.invalidURL }
 		
-		self.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: timeoutInterval)
+		self.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: client.timeoutInterval)
 		self.httpMethod = configuration.method.rawValue
 		self.allHTTPHeaderFields = configuration.headerFields
 		self.httpBody = Data(configuration: configuration)
@@ -25,7 +24,7 @@ extension URLRequest {
 // MARK: - URL
 
 extension URL {
-	init?(configuration: ResourceConfiguration) {
+	init?(baseURL: String, defaultParameters: [String: Any]?, configuration: ResourceConfiguration) {
 		func parameterString(withDictionary dictionary: [String: Any]) -> String {
 			let parameters = dictionary.keys.flatMap({ (key) -> String? in
 				guard let value = dictionary[key] else { return nil }
@@ -48,11 +47,9 @@ extension URL {
 			return configuration.path
 		}()
 		
-		guard let baseURL = Networking.client.configuration?.networkingClientBaseURL() else { return nil }
-		
 		let url: String = {
 			let parameters: String? = {
-				guard let defaultParameters = Networking.client.configuration?.networkingClientDefaultParameters() else { return nil }
+				guard let defaultParameters = defaultParameters else { return nil }
 				return parameterString(withDictionary: defaultParameters)
 			}()
 			
