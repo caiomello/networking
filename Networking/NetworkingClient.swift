@@ -32,14 +32,14 @@ public struct NetworkingClient {
 // MARK: - Requests
 
 extension NetworkingClient {
-	@discardableResult public func request<T>(_ resource: Resource<T>, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
+	@discardableResult public func request<T>(_ resource: Resource<T>, session: URLSession = .shared, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
 		do {
 			let configuration = try resource.configuration()
 			let request = try URLRequest(client: self, configuration: configuration)
 			
 			log(configuration: configuration, request: request, error: nil)
 			
-			let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+			let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
 				do {
 					if let connectionError = ConnectionError(response: response, error: error) { throw connectionError }
 					
