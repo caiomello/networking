@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ConnectionError: NetworkingError {
+public enum ConnectionError: NetworkingError {
 	case unknown
 	case noInternetConnection
 	case timedOut
@@ -20,7 +20,7 @@ enum ConnectionError: NetworkingError {
 	case notFound
 	case serverError
 	
-	var message: String {
+	public var message: String {
 		switch self {
 		case .noInternetConnection: return "No internet connection"
 		case .timedOut: return "The request took too long"
@@ -28,7 +28,7 @@ enum ConnectionError: NetworkingError {
 		}
 	}
 	
-	var technicalDescription: String {
+	public var technicalDescription: String {
 		switch self {
 		case .noInternetConnection: return "No internet connection"
 		case .timedOut: return "Timed out"
@@ -43,7 +43,7 @@ enum ConnectionError: NetworkingError {
 		}
 	}
 	
-	var description: String {
+	public var description: String {
 		return "Connection error: \(technicalDescription)"
 	}
 	
