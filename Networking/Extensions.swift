@@ -26,7 +26,7 @@ extension URLRequest {
 extension URL {
 	init?(baseURL: String, defaultParameters: [String: Any]?, configuration: ResourceConfiguration) {
 		func parameterString(withDictionary dictionary: [String: Any]) -> String {
-			let parameters = dictionary.keys.flatMap({ (key) -> String? in
+            let parameters = dictionary.keys.compactMap({ (key) -> String? in
 				guard let value = dictionary[key] else { return nil }
 				return "\(key)=\(value)"
 			})
