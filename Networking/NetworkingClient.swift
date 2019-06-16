@@ -8,49 +8,54 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
-	case get = "GET"
-	case post = "POST"
-	case put = "PUT"
-	case delete = "DELETE"
-}
-
 public struct NetworkingClient {
-	let baseURL: String
-	let defaultParameters: [String: Any]?
+	let session: URLSession
 	let timeoutInterval: TimeInterval
 	let loggingEnabled: Bool
-	
-	public init(baseURL: String, defaultParameters: [String: Any]?, timeoutInterval: TimeInterval, loggingEnabled: Bool) {
-		self.baseURL = baseURL
-		self.defaultParameters = defaultParameters
-		self.timeoutInterval = timeoutInterval
-		self.loggingEnabled = loggingEnabled
-	}
+
+    init(session: URLSession = .shared,
+         timeoutInterval: TimeInterval = 30,
+         loggingEnabled: Bool = true) {
+
+        self.session = session
+        self.timeoutInterval = timeoutInterval
+        self.loggingEnabled = loggingEnabled
+    }
 }
 
 // MARK: - Requests
 
 extension NetworkingClient {
-	@discardableResult public func request<T>(_ resource: Resource<T>, session: URLSession = .shared, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask? {
-		do {
-			let configuration = try resource.configuration()
-			let request = try URLRequest(client: self, configuration: configuration)
-			
-			log(configuration: configuration, request: request, error: nil)
+    @discardableResult public func request<T: Decodable>(_ url: String,
+                                                         method: HTTP.Method,
+                                                         parameters: [String: String]? = nil,
+                                                         headers: [String: String]? = nil,
+                                                         completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        do {
+            let request = try URLRequest(url: url,
+                                         method: method,
+                                         parameters: parameters,
+                                         headers: headers,
+                                         timeoutInterval: timeoutInterval)
+
+            log(request: request, parameters: parameters)
 			
 			let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
 				do {
-					if let connectionError = ConnectionError(response: response, error: error) { throw connectionError }
-					
-					let object = try resource.parse(data)
-					
+					if let connectionError = NetworkingError(response: response, error: error) {
+                        throw connectionError
+                    }
+
+                    guard let data = data else { throw NetworkingError.noData }
+
+                    let object = try JSONDecoder().decode(T.self, from: data)
+
 					completion(.success(object))
 					
 				} catch {
-					self.log(configuration: configuration, request: request, error: error as? NetworkingError)
+					self.log(request: request, parameters: parameters, error: error as? NetworkingError)
 					
-					completion(.failure(error as! NetworkingError, response as? HTTPURLResponse))
+					completion(.failure(error as! NetworkingError))
 				}
 			})
 			
@@ -61,24 +66,26 @@ extension NetworkingClient {
 		} catch {
 			log(error: error)
 			
-			completion(.failure(error as! NetworkingError, nil))
+			completion(.failure(error as! NetworkingError))
 			
 			return nil
 		}
 	}
+
+    
 }
 
 // MARK: - Logging
 
 extension NetworkingClient {
-	private func log(configuration: ResourceConfiguration, request: URLRequest, error: NetworkingError?) {
+    private func log(request: URLRequest, parameters: [String: String]?, error: NetworkingError? = nil) {
 		guard loggingEnabled else { return }
 		
-		let log = "[\(configuration.method.rawValue)] \(request.url!.absoluteString)"
+		let log = "[\(request.httpMethod!)] \(request.url!.absoluteString)"
 		
 		if let error = error {
 			print(log + " - " + "\(error)")
-		} else if let parameters = configuration.parameters as? String {
+		} else if let parameters = parameters {
 			print(log + " " + "\(parameters)")
 		} else {
 			print(log)

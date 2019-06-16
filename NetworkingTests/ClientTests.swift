@@ -11,12 +11,11 @@ import XCTest
 
 class APIClientTests: XCTestCase {
 	var client: NetworkingClient!
-	var configuration: ResourceConfiguration!
 	
 	override func setUp() {
 		super.setUp()
 		
-		client = NetworkingClient(baseURL: "https://jsonplaceholder.typicode.com", defaultParameters: nil, timeoutInterval: 30, loggingEnabled: true)
+		client = NetworkingClient()
 	}
 	
 	override func tearDown() {
@@ -31,12 +30,12 @@ class APIClientTests: XCTestCase {
 extension APIClientTests {
 	func testRequest() {
 		let expectation = self.expectation(description: "GET /posts/1")
-		
-		let task = client.request(Post.resource.identifier(1)) { (result) in
+
+        let task = client.request("https://jsonplaceholder.typicode.com/posts/1", method: .get) { (result: Result<Post, NetworkingError>) in
 			switch result {
 			case .success(let object):
 				print(object)
-			case .failure(let error, _):
+			case .failure(let error):
 				print(error)
 			}
 			
