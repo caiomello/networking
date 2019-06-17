@@ -26,74 +26,93 @@ public struct NetworkingClient {
 // MARK: - Requests
 
 extension NetworkingClient {
-    @discardableResult public func request<T: Decodable>(_ url: String,
-                                                         method: HTTP.Method,
-                                                         parameters: [String: String]? = nil,
-                                                         headers: [String: String]? = nil,
-                                                         completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
-        do {
-            let request = try URLRequest(url: url,
-                                         method: method,
-                                         parameters: parameters,
-                                         headers: headers,
-                                         timeoutInterval: timeoutInterval)
+    @discardableResult public func get<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        let urlRequest = URLRequest(url: url, method: .get, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
+        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
+    }
 
-            log(request: request, parameters: parameters)
-			
-			let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-				do {
-					if let connectionError = NetworkingError(response: response, error: error) {
-                        throw connectionError
-                    }
+    @discardableResult public func post<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        let urlRequest = URLRequest(url: url, method: .post, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
+        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
+    }
 
-                    guard let data = data else { throw NetworkingError.noData }
+    @discardableResult public func put<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        let urlRequest = URLRequest(url: url, method: .put, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
+        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
+    }
 
-                    let object = try JSONDecoder().decode(T.self, from: data)
+    @discardableResult public func delete<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        let urlRequest = URLRequest(url: url, method: .delete, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
+        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
+    }
 
-					completion(.success(object))
-					
-				} catch {
-					self.log(request: request, parameters: parameters, error: error as? NetworkingError)
-					
-					completion(.failure(error as! NetworkingError))
-				}
-			})
-			
-			task.resume()
-			
-			return task
-			
-		} catch {
-			log(error: error)
-			
-			completion(.failure(error as! NetworkingError))
-			
-			return nil
-		}
-	}
+    @discardableResult private func request<T: Decodable>(_ request: URLRequest, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        log(request: request, type: .requestFired)
 
-    
+        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            do {
+                if let connectionError = NetworkingError(response: response, error: error) { throw connectionError }
+
+                guard let data = data else { throw NetworkingError.noData }
+
+                let object = try JSONDecoder().decode(T.self, from: data)
+                self.log(request: request, type: .success)
+                completion(.success(object))
+
+            } catch let error as NetworkingError {
+                self.log(request: request, type: .failure(error))
+                completion(.failure(error))
+            } catch let error as DecodingError {
+                self.log(request: request, type: .failure(error))
+                completion(.failure(NetworkingError(decodingError: error)))
+            } catch {
+                self.log(request: request, type: .failure(error))
+                completion(.failure(.unknown))
+            }
+        })
+
+        task.resume()
+
+        return task
+    }
 }
 
 // MARK: - Logging
 
 extension NetworkingClient {
-    private func log(request: URLRequest, parameters: [String: String]?, error: NetworkingError? = nil) {
-		guard loggingEnabled else { return }
-		
-		let log = "[\(request.httpMethod!)] \(request.url!.absoluteString)"
-		
-		if let error = error {
-			print(log + " - " + "\(error)")
-		} else if let parameters = parameters {
-			print(log + " " + "\(parameters)")
-		} else {
-			print(log)
-		}
-	}
-	
-	private func log(error: Error) {
-		guard loggingEnabled else { return }
-		print(error)
-	}
+    private enum LoggingType {
+        case requestFired
+        case success
+        case failure(Error)
+    }
+
+    // swiftlint:disable localizable_strings
+    private func log(request: URLRequest, type: LoggingType) {
+        if isDebug() {
+            return
+        }
+
+        let log = "[\(request.httpMethod!)] \(request.url!.absoluteString)"
+
+        switch type {
+        case .requestFired:
+            if let body = request.httpBody, let dict = try? JSONDecoder().decode([String: String].self, from: body) {
+                print("\(log) - Parameters: \(dict)")
+            } else {
+                print(log)
+            }
+        case .success:
+            print("\(log) - Success")
+        case .failure(let error):
+            print("\(log) - Failure: \(error)")
+        }
+    }
+
+    private func isDebug() -> Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
 }

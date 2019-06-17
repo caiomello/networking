@@ -29,7 +29,7 @@ class ExtensionTests: XCTestCase {
 
 extension ExtensionTests {
 	func testURLInit() {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com", method: .get, parameters: ["apikey": "1234", "page": "1", "date": "2017-04-13"]) else { XCTFail(); return }
+        let url = URL(string: "https://jsonplaceholder.typicode.com", method: .get, parameters: ["apikey": "1234", "page": "1", "date": "2017-04-13"])
 
 		XCTAssertEqual(url.absoluteString, "https://jsonplaceholder.typicode.com?apikey=1234&page=1&date=2017-04-13")
 	}

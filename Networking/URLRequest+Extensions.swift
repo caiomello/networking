@@ -9,8 +9,8 @@
 import Foundation
 
 extension URLRequest {
-    init(url: String, method: HTTP.Method, parameters: [String: String]?, headers: [String: String]?, timeoutInterval: TimeInterval) throws {
-        guard let url = URL(string: url, method: method, parameters: parameters) else { throw NetworkingError.invalidURL }
+    init(url: String, method: HTTP.Method, parameters: [String: String]?, headers: [String: String]?, timeoutInterval: TimeInterval) {
+        let url = URL(string: url, method: method, parameters: parameters)
 
         self.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: timeoutInterval)
 

@@ -21,6 +21,7 @@ public enum NetworkingError: Error, CustomStringConvertible {
     case serverError
     case invalidURL
     case noData
+    case decodingFailed(String)
 
     public var title: String {
         return "Error"
@@ -47,6 +48,7 @@ public enum NetworkingError: Error, CustomStringConvertible {
         case .serverError: return "Server error"
         case .invalidURL: return "Invalid URL"
         case .noData: return "No data"
+        case .decodingFailed(let description): return description
         default: return "Unknown"
         }
     }
@@ -70,11 +72,25 @@ public enum NetworkingError: Error, CustomStringConvertible {
             return nil
         }
 
-        self.init(code: code)
+        self.init(statusCode: code)
     }
 
-    private init(code: Int) {
-        switch code {
+    init(decodingError: DecodingError) {
+        let debugDescription: String = {
+            switch decodingError {
+            case .typeMismatch(_, let context): return context.debugDescription
+            case .valueNotFound(_, let context): return context.debugDescription
+            case .keyNotFound(_, let context): return context.debugDescription
+            case .dataCorrupted(let context): return context.debugDescription
+            @unknown default: return "Unknown"
+            }
+        }()
+
+        self = .decodingFailed("Decoding failed - \(debugDescription)")
+    }
+
+    private init(statusCode: Int) {
+        switch statusCode {
         case 0, -1009: self = .noInternetConnection
         case -1001: self = .timedOut
         case 400, 422: self = .badRequest

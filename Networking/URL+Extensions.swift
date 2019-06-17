@@ -9,7 +9,7 @@
 import Foundation
 
 extension URL {
-    init?(string: String, method: HTTP.Method, parameters: [String: String]?) {
+    init(string: String, method: HTTP.Method, parameters: [String: String]?) {
         let urlWithParameters: String = {
             if method == .get, let queryString = parameters?.queryString() {
                 if string.contains("?") {
@@ -22,8 +22,7 @@ extension URL {
             return string
         }()
 
-        guard let string = urlWithParameters.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return nil }
-        self.init(string: string)
+        self.init(string: urlWithParameters.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
     }
 }
 
