@@ -57,17 +57,29 @@ extension NetworkingClient {
 
                 let object = try JSONDecoder().decode(T.self, from: data)
                 self.log(request: request, type: .success)
-                completion(.success(object))
+
+                DispatchQueue.main.async {
+                    completion(.success(object))
+                }
 
             } catch let error as NetworkingError {
                 self.log(request: request, type: .failure(error))
-                completion(.failure(error))
+
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             } catch let error as DecodingError {
                 self.log(request: request, type: .failure(error))
-                completion(.failure(NetworkingError(decodingError: error)))
+
+                DispatchQueue.main.async {
+                    completion(.failure(NetworkingError(decodingError: error)))
+                }
             } catch {
                 self.log(request: request, type: .failure(error))
-                completion(.failure(.unknown))
+
+                DispatchQueue.main.async {
+                    completion(.failure(.unknown))
+                }
             }
         })
 
