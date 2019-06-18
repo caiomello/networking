@@ -15,6 +15,7 @@
 		25C86FE61EA7074600A1E4C0 /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */; };
 		25C86FE71EA7074600A1E4C0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FE41EA7074600A1E4C0 /* Post.swift */; };
 		25C86FF71EA7076B00A1E4C0 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C86FF61EA7076B00A1E4C0 /* NetworkingError.swift */; };
+		25CB5A0B22B94F0C00AB4E5B /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CB5A0A22B94F0C00AB4E5B /* JSONDecoder+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		25C86FE31EA7074600A1E4C0 /* ExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		25C86FE41EA7074600A1E4C0 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		25C86FF61EA7076B00A1E4C0 /* NetworkingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
+		25CB5A0A22B94F0C00AB4E5B /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				2597A0341EAFC75E001BF6FE /* NetworkingClient.swift */,
+				25CB5A0A22B94F0C00AB4E5B /* JSONDecoder+Extensions.swift */,
 				25C86FF61EA7076B00A1E4C0 /* NetworkingError.swift */,
 				257B7C3622B5905B003C31B1 /* URL+Extensions.swift */,
 				257B7C3422B59054003C31B1 /* URLRequest+Extensions.swift */,
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				257B7C3722B5905B003C31B1 /* URL+Extensions.swift in Sources */,
+				25CB5A0B22B94F0C00AB4E5B /* JSONDecoder+Extensions.swift in Sources */,
 				257B7C3522B59054003C31B1 /* URLRequest+Extensions.swift in Sources */,
 				25C86FF71EA7076B00A1E4C0 /* NetworkingError.swift in Sources */,
 				2597A0351EAFC75E001BF6FE /* NetworkingClient.swift in Sources */,

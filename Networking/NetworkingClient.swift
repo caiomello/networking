@@ -13,10 +13,7 @@ public struct NetworkingClient {
 	let timeoutInterval: TimeInterval
 	let loggingEnabled: Bool
 
-    public init(session: URLSession = .shared,
-                timeoutInterval: TimeInterval = 30,
-                loggingEnabled: Bool = true) {
-
+    public init(session: URLSession = .shared, timeoutInterval: TimeInterval = 30, loggingEnabled: Bool = true) {
         self.session = session
         self.timeoutInterval = timeoutInterval
         self.loggingEnabled = loggingEnabled
