@@ -31,7 +31,7 @@ extension ClientTests {
 	func testRequest() {
 		let expectation = self.expectation(description: "GET /posts/1")
 
-        let task = client.get("https://jsonplaceholder.typicode.com/posts/1") { (result: Result<Post, NetworkingError>) in
+        let task = client.request("https://jsonplaceholder.typicode.com/posts/1") { (result: Result<Post, NetworkingError>) in
 			switch result {
 			case .success(let object):
 				print(object)

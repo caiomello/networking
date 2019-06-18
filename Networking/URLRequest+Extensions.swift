@@ -9,16 +9,12 @@
 import Foundation
 
 extension URLRequest {
-    init(url: String, method: HTTP.Method, parameters: [String: String]?, headers: [String: String]?, timeoutInterval: TimeInterval) {
-        let url = URL(string: url, method: method, parameters: parameters)
+    init(url: String, parameters: [String: String]?, headers: [String: String]?, timeoutInterval: TimeInterval) {
+        let url = URL(string: url, parameters: parameters)
 
         self.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: timeoutInterval)
 
-        httpMethod = method.rawValue
+        httpMethod = "GET"
         allHTTPHeaderFields = headers
-
-        if method != .get, let parameters = parameters {
-            httpBody = try? JSONEncoder().encode(parameters)
-        }
     }
 }

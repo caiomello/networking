@@ -10,17 +10,14 @@ import Foundation
 
 public struct NetworkingClient {
 	let session: URLSession
-    let decoder: JSONDecoder
 	let timeoutInterval: TimeInterval
 	let loggingEnabled: Bool
 
     public init(session: URLSession = .shared,
-                decoder: JSONDecoder = JSONDecoder(),
                 timeoutInterval: TimeInterval = 30,
                 loggingEnabled: Bool = true) {
 
         self.session = session
-        self.decoder = decoder
         self.timeoutInterval = timeoutInterval
         self.loggingEnabled = loggingEnabled
     }
@@ -29,28 +26,8 @@ public struct NetworkingClient {
 // MARK: - Requests
 
 extension NetworkingClient {
-    @discardableResult public func get<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
-        let urlRequest = URLRequest(url: url, method: .get, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
-        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
-    }
-
-    @discardableResult public func post<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
-        let urlRequest = URLRequest(url: url, method: .post, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
-        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
-    }
-
-    @discardableResult public func put<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
-        let urlRequest = URLRequest(url: url, method: .put, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
-        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
-    }
-
-    @discardableResult public func delete<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
-        let urlRequest = URLRequest(url: url, method: .delete, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
-        return request(urlRequest, parameters: parameters, headers: headers, completion: completion)
-    }
-
-    @discardableResult private func request<T: Decodable>(_ request: URLRequest, parameters: [String: String]? = nil, headers: [String: String]? = nil, completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
-        log(request: request, type: .requestFired)
+    @discardableResult public func request<T: Decodable>(_ url: String, parameters: [String: String]? = nil, headers: [String: String]? = nil, decoder: JSONDecoder = JSONDecoder(), completion: @escaping (Result<T, NetworkingError>) -> Void) -> URLSessionDataTask? {
+        let request = URLRequest(url: url, parameters: parameters, headers: headers, timeoutInterval: timeoutInterval)
 
         let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
             do {
@@ -58,7 +35,8 @@ extension NetworkingClient {
 
                 guard let data = data else { throw NetworkingError.noData }
 
-                let object = try self.decoder.decode(T.self, from: data)
+                let object = try decoder.decode(T.self, from: data)
+
                 self.log(request: request, type: .success)
 
                 DispatchQueue.main.async {
@@ -85,6 +63,8 @@ extension NetworkingClient {
                 }
             }
         })
+
+        log(request: request, type: .requestFired)
 
         task.resume()
 
