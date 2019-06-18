@@ -8,8 +8,8 @@
 
 import Foundation
 
-public enum HTTP {
-    public enum Method: String {
+enum HTTP {
+    enum Method: String {
         case get = "GET"
         case post = "POST"
         case put = "PUT"
