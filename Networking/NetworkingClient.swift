@@ -10,14 +10,17 @@ import Foundation
 
 public struct NetworkingClient {
 	let session: URLSession
+    let decoder: JSONDecoder
 	let timeoutInterval: TimeInterval
 	let loggingEnabled: Bool
 
     public init(session: URLSession = .shared,
-         timeoutInterval: TimeInterval = 30,
-         loggingEnabled: Bool = true) {
+                decoder: JSONDecoder = JSONDecoder(),
+                timeoutInterval: TimeInterval = 30,
+                loggingEnabled: Bool = true) {
 
         self.session = session
+        self.decoder = decoder
         self.timeoutInterval = timeoutInterval
         self.loggingEnabled = loggingEnabled
     }
@@ -55,7 +58,7 @@ extension NetworkingClient {
 
                 guard let data = data else { throw NetworkingError.noData }
 
-                let object = try JSONDecoder().decode(T.self, from: data)
+                let object = try self.decoder.decode(T.self, from: data)
                 self.log(request: request, type: .success)
 
                 DispatchQueue.main.async {
