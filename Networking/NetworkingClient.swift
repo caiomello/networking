@@ -88,11 +88,7 @@ extension NetworkingClient {
 
         switch type {
         case .requestFired:
-            if let body = request.httpBody, let dict = try? JSONDecoder().decode([String: String].self, from: body) {
-                print("\(log) - Parameters: \(dict)")
-            } else {
-                print(log)
-            }
+            print(log)
         case .success:
             print("\(log) - Success")
         case .failure(let error):

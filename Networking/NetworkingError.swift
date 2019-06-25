@@ -48,13 +48,13 @@ public enum NetworkingError: Error, CustomStringConvertible {
         case .serverError: return "Server error"
         case .invalidURL: return "Invalid URL"
         case .noData: return "No data"
-        case .decodingFailed(let description): return description
+        case .decodingFailed(let reason): return reason
         default: return "Unknown"
         }
     }
 
     public var description: String {
-        return "Networking error: \(technicalDescription)"
+        return technicalDescription
     }
 
     init?(response: URLResponse?, error: Error?) {
