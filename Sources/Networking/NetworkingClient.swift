@@ -9,6 +9,8 @@ import Foundation
 
 public struct NetworkingClient {
     private let logger = Logger()
+
+    public init() {}
 }
 
 // MARK: - Operations
