@@ -24,7 +24,7 @@ struct Logger {
                 components.append("[\(httpResponse.statusCode)]")
             }
 
-            components.append("[\(urlString)]")
+            components.append("\(urlString)")
 
             return components.joined(separator: " ")
         }()
