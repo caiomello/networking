@@ -8,9 +8,13 @@
 import Foundation
 
 public struct NetworkingClient {
-    private let logger = Logger()
+    private let session: URLSession
+    private let logger: Logger
 
-    public init() {}
+    public init(session: URLSession = .shared) {
+        self.session = session
+        self.logger = Logger()
+    }
 }
 
 // MARK: - Operations
@@ -22,7 +26,7 @@ extension NetworkingClient {
 
             logger.log(endpoint: endpoint, type: .requestFired)
 
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await session.data(for: request)
 
             if let statusCode = (response as? HTTPURLResponse)?.statusCode, let error = NetworkingError(statusCode: statusCode) {
                 logger.log(endpoint: endpoint, response: response, type: .failure(error))
