@@ -20,7 +20,7 @@ public struct NetworkingClient {
 // MARK: - Operations
 
 extension NetworkingClient {
-    public func object<T: Decodable>(at endpoint: Endpoint) async throws -> T {
+    public func object<T: Decodable>(at endpoint: Endpoint, decoder: JSONDecoder = JSONDecoder()) async throws -> T {
         do {
             let request = try endpoint.request
 
@@ -33,7 +33,6 @@ extension NetworkingClient {
                 throw error
             }
 
-            let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = endpoint.dateDecodingStrategy
 
             let object = try decoder.decode(T.self, from: data)
