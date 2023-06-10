@@ -10,7 +10,7 @@ import OSLog
 
 public struct NetworkingClient {
     private let session: URLSession
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: Self.self))
+    private let logger = Logger(subsystem: "Networking", category: String(describing: Self.self))
 
     public init(session: URLSession = .shared) {
         self.session = session
@@ -28,7 +28,7 @@ extension NetworkingClient {
         do {
             let request = try endpoint.request
 
-            logger.trace("[\(endpoint.method.rawValue)] \(urlString, privacy: .private)")
+            logger.trace("🚀 [\(endpoint.method.rawValue)] \(urlString, privacy: .private)")
 
             let (data, response) = try await session.data(for: request)
 
@@ -42,12 +42,12 @@ extension NetworkingClient {
 
             let object = try decoder.decode(T.self, from: data)
 
-            logger.notice("[\(endpoint.method.rawValue)] [\(statusCode ?? 0)] \(urlString, privacy: .private)")
+            logger.notice("✅ [\(endpoint.method.rawValue)] [\(statusCode ?? 0)] \(urlString, privacy: .private)")
 
             return object
 
         } catch {
-            logger.error("[\(endpoint.method.rawValue)] [\(statusCode ?? 0)] \(urlString, privacy: .private) - \(error)")
+            logger.error("⛔️ [\(endpoint.method.rawValue)] [\(statusCode ?? 0)] \(urlString, privacy: .private) - \(error)")
             throw error
         }
     }
