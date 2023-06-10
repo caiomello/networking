@@ -6,14 +6,14 @@
 //
 
 import Foundation
+import OSLog
 
 public struct NetworkingClient {
     private let session: URLSession
-    private let logger: Logger
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: Self.self))
 
     public init(session: URLSession = .shared) {
         self.session = session
-        self.logger = Logger()
     }
 }
 
@@ -21,15 +21,20 @@ public struct NetworkingClient {
 
 extension NetworkingClient {
     public func object<T: Decodable>(at endpoint: Endpoint, decoder: JSONDecoder = JSONDecoder()) async throws -> T {
+        let urlString = (try? endpoint.request.url?.absoluteString) ?? "INVALID URL"
+
+        var statusCode: Int?
+
         do {
             let request = try endpoint.request
 
-            logger.log(endpoint: endpoint, type: .requestFired)
+            logger.trace("[\(endpoint.method.rawValue)] \(urlString, privacy: .private)")
 
             let (data, response) = try await session.data(for: request)
 
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode, let error = NetworkingError(statusCode: statusCode) {
-                logger.log(endpoint: endpoint, response: response, type: .failure(error))
+            statusCode = (response as? HTTPURLResponse)?.statusCode
+
+            if let statusCode, let error = NetworkingError(statusCode: statusCode) {
                 throw error
             }
 
@@ -37,12 +42,12 @@ extension NetworkingClient {
 
             let object = try decoder.decode(T.self, from: data)
 
-            logger.log(endpoint: endpoint, response: response, type: .success)
+            logger.notice("[\(endpoint.method.rawValue)] [\(statusCode ?? 0)] \(urlString, privacy: .private)")
 
             return object
 
         } catch {
-            logger.log(endpoint: endpoint, type: .failure(error))
+            logger.error("[\(endpoint.method.rawValue)] [\(statusCode ?? 0)] \(urlString, privacy: .private) - \(error)")
             throw error
         }
     }
