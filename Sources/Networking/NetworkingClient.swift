@@ -28,7 +28,7 @@ extension NetworkingClient {
         do {
             let request = try endpoint.request
 
-            logger.trace("🚀 [\(endpoint.method.rawValue)] \(urlString, privacy: .private)")
+            logger.notice("🚀 [\(endpoint.method.rawValue)] \(urlString, privacy: .private)")
 
             let (data, response) = try await session.data(for: request)
 
